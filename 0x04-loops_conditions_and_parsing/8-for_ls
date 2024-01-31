@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Display the content of the current directory in a list format.
 
-for file in *; do
-  if [ -f "$file" ] && [[ $file == *-* && $file != .* ]]; then
-    echo "$file" | cut -d '-' -f2
-  fi
+list=$(ls)
+for i in $list; do
+  echo "$i" | cut -d '-' -f2
 done
