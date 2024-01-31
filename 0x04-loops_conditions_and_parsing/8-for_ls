@@ -2,7 +2,7 @@
 # Display the content of the current directory in a list format.
 
 for file in *; do
-  if [ -f "$file" ] && [[ $file == *-* ]]; then
-    echo "$file"
+  if [ -f "$file" ] && [[ $file == *-* && $file != .* ]]; then
+    echo "$file" | cut -d '-' -f2
   fi
 done
