@@ -2,7 +2,7 @@
 # Stop the 4-to_infinity_and_beyond process without using kill or killall.
 
 # Fint PID of the process
-pid=$(pgrep -fo "4-to_infinity_and_beyond")
+pid=$(pgrep -o "4-to_infinity_and_beyond")
 
 # Check if process if running
 if [ -n "$pid" ]; then
