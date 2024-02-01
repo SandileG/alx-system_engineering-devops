@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Stop the 4-to_infinity_and_beyond process without using kill or killall.
+# Stop the 4-to_infinity_and_beyond process without using kill or killalli.
 
-# Fint PID of the process
-pid=$(pgrep -o "4-to_infinity_and_beyond")
+touch stop_signal
 
-# Check if process if running
-if [ -n "$pid" ]; then
-    # Send interrupt signal to gracefully stop the process
-    kill -INT "$pid"
-fi
+while [ -e "stop_signal" ]; do
+    sleep 2
+done
+
+rm -f stop_signal
