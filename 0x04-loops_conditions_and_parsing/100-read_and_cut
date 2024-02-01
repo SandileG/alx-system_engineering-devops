@@ -3,6 +3,6 @@
 
 file="/etc/passwd"
 
-while IFS=":" read -r username _ rid _ home_path _; do
+while IFS=":" read -r username _ uid _ home_path _; do
   echo "${username}:${uid}:${home_path}"
 done < "$file"
