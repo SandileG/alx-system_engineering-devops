@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Bash script to generate a narrative about each user in /etc/passwd.
-# It reads etc/passwd, extracts user information, and cosntructs a story.
 
-file"/etc/passwd"
+# Bash script to generate a narrative about each user in /etc/passwd
+# It reads the /etc/passwd file, extracts user information, and constructs a story for each user.
+
+file="/etc/passwd"
 
 while IFS=":" read -r username _ gid _ home_path shell; do
   echo "The user $username is part of the $gid gang, lives in $home_path and rides $shell. $gid's place is protected by the passcode x, more info about the user here: $username"
