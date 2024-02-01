@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Display a list of currently running processes with provess hierarchy.
+
+# Using the ps command to show all processes for all users, even no TTY users.
+ps aux --forest
