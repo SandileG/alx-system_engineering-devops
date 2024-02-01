@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
+# Tells creative tail of the contents within /etc/passwd file.
 
-# Bash script to generate a narrative about each user in /etc/passwd
-# It reads the /etc/passwd file, extracts user information, and constructs a story for each user.
-
-# Use a more descriptive variable name for the input file
-passwd_file="/etc/passwd"
-
-# Read each line of /etc/passwd, extract fields using ':' as the delimiter, and process the information
 while IFS=':' read -r username password uid gid info home shell; do
-    # Display a narrative about the user based on extracted information
-    echo "The user $username is part of the $gid gang, lives in $home and rides $shell." \
-         "$uid's place is protected by the passcode $password, more info about the user here: $info"
-done < "$passwd_file"
+  echo "The user $username is part of the $gid gang,"\
+  "lives in $home and rides $shell."\
+  "$uid's place is protected by the passcode $password,"\
+  "more info about the user here: $info"
+done < "/etc/passwd"
