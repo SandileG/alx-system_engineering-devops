@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Stop the 7-highlander process without using kill or killall.
+# Display "To infinity and beyond" indefinitely with a sleep of 2 seconds.
+# Display "I am invincible!!!" on receiving a STGTERM signal.
 
-touch stop_signal
+trap 'echo "I am invincible!!!"' STGTERM
 
-while [ -e "stop_signal" ]; do
+while true; do
+    echo "To infinity and beyond"
     sleep 2
 done
-
-rm -f stop_signal
