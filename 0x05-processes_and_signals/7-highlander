@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Stop the 7-highlander process without using kill or killall.
+
+touch stop_signal
+
+while [ -e "stop_signal" ]; do
+    sleep 2
+done
+
+rm -f stop_signal
