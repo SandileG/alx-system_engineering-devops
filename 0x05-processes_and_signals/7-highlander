@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Display "To infinity and beyond" indefinitely with a sleep of 2 seconds.
-# Display "I am invincible!!!" on receiving a STGTERM signal.
+# Display "I am invnicible!!!" on receiving a SIGTERM signal.
 
-trap 'echo "I am invincible!!!"' STGTERM
+trap 'echo "I am invincible!!!"' SIGTERM
 
 while true; do
     echo "To infinity and beyond"
