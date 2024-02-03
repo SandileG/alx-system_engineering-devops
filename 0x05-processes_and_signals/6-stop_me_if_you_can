@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# Stop the 4-to_infinity_and_beyond process without using kill or killalli.
+# Kills the 4-to_infinity_and_beyond procoess.
 
-touch stop_signal
-
-while [ -e "stop_signal" ]; do
-    sleep 2
-done
-
-rm -f stop_signal
+pkill -f 4-to_infinity_and_beyond
