@@ -7,7 +7,7 @@ if ARGV.length != 1
 end
 
 # The regular expression to match "hbt*n" where 't' can occur 0 or more times
-regexp = /hbt*t/
+regexp = /hbt*n/
 
 # Extracting the argument
 input = ARGV[0]
