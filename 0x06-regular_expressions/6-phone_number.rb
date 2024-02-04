@@ -7,14 +7,17 @@ if ARGV.length != 1
 end
 
 # The regular expression to match a 10-digit phone number
-regexp = /^\d{10}$/
+regexp = /^\d{10,10}$/
 
 # Extracting the argument
 phone_number = ARGV[0]
 
-# Check if the input matches the pattern
-if (match = phone_number.match(regexp))
-  puts match[0]
-else
+# Using the scan method to find all occurrences of the pattern
+matches = phone_number.scan(regexp)
+
+# Check if there are matches and print the result
+if matches.empty?
   puts ""
+else
+  puts matches.join
 end
