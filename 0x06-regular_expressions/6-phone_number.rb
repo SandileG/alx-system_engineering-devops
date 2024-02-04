@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/ruby
 
 # Ensure an argument is provided
 if ARGV.length != 1
