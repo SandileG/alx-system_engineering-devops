@@ -13,8 +13,8 @@ regexp = /^\d{10}$/
 phone_number = ARGV[0]
 
 # Check if the input matches the pattern
-if phone_number.match?(regexp)
-  puts "#{phone_number}$"
+if (match = phone_number.match(regexp))
+  puts match[0]
 else
   puts ""
 end
