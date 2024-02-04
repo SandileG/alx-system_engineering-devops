@@ -7,7 +7,7 @@ if ARGV.length != 1
 end
 
 # The regular expression to match "School"
-regexp = /School/
+regexp = /hbttn/
 
 # Extracting the argument
 input = ARGV[0]
@@ -19,5 +19,5 @@ match_result = input.match(regexp)
 if match_result
   puts match_result[0]
 else
-  puts "No match found."
+  puts ""
 end
