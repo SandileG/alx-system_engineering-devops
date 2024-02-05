@@ -1,29 +1,12 @@
 #!/usr/bin/env bash
 # Script to configure DNS resolution on an Ubuntu server
 
-# Check if running as root
-if [ "$(id -u)" -ne 0 ]; then
-    echo "Please run as root or using sudo."
-    exit 1
-fi
-
-# Display usage if no arguments provided
-if [ "$#" -ne 0 ]; then
-    echo "Usage: $0"
-    exit 1
-fi
-
 # Create a backup of the original hosts file
-cp /etc/hosts /etc/hosts.bak
+cp /etc/hosts ~/hosts.new
 
 # Create a new hosts file with updated entries
-echo "127.0.0.2 localhost" > /etc/hosts.new
+echo "127.0.0.2 localhost" > ~/hosts.new
 echo "8.8.8.8 facebook.com" >> /etc/hosts.new
 
 # Replace the original hosts file with the new one
-cp -f /etc/hosts.new /etc/hosts
-
-# Display success message
-echo "DNS configuration updated successfully."
-
-# End of script
+cp -f ~/hosts.new /etc/hosts
