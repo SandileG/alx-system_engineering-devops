@@ -13,12 +13,15 @@ if [ "$#" -ne 0 ]; then
     exit 1
 fi
 
-# Backup original hosts file
+# Create a backup of the original hosts file
 cp /etc/hosts /etc/hosts.bak
 
-# Update localhost and facebook.com entries
-sed -i '/^127\.0\.0\.1[[:space:]]localhost/s/$/ 127.0.0.2/' /etc/hosts
-echo "8.8.8.8 facebook.com" >> /etc/hosts
+# Create a new hosts file with updated entries
+echo "127.0.0.2 localhost" > /etc/hosts.new
+echo "8.8.8.8 facebook.com" >> /etc/hosts.new
+
+# Replace the original hosts file with the new one
+cp -f /etc/hosts.new /etc/hosts
 
 # Display success message
 echo "DNS configuration updated successfully."
