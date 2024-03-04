@@ -1,0 +1,77 @@
+https://drive.google.com/file/d/1mVe6X9XHclnte2rzgKc2wwdeI_lMNdIH/view?usp=sharing
+
+
+Designing a Secure, Encrypted, and Monitored Three-Server Web Infrastructure for www.foobar.com
+
+Components:
+
+Load Balancer (Nginx):
+
+Distributes incoming web traffic across multiple servers.
+Why: Used for load balancing and SSL termination.
+
+Web Servers (Nginx with SSL):
+
+Hosts and serves web content over HTTPS.
+Why: Ensures secure and encrypted communication between clients and servers.
+
+Application Servers:
+
+Executes application logic and processes dynamic content.
+Why: Handles application-specific tasks and interactions with the database.
+
+MySQL Database Servers (Primary-Replica Cluster):
+
+Primary server for write operations, replicates data to replica servers.
+Why: Provides fault tolerance and scalability for database operations.
+
+Firewalls (Perimeter, Web Server, Database Server):
+
+Control incoming and outgoing network traffic, enforcing security policies.
+Why: Adds layers of security to protect against unauthorized access and cyber threats.
+
+SSL Certificate (for www.foobar.com):
+
+Enables HTTPS encryption for secure communication between clients and servers.
+Why: Protects sensitive data during transit and builds trust with users.
+
+Monitoring Clients (Data Collectors for Sumo Logic):
+
+Collect data on system performance, security events, and application metrics.
+Why: Provides insights into infrastructure health, detects anomalies, and facilitates proactive troubleshooting.
+
+Specifics Explained:
+
+Firewalls:
+
+Firewalls are added to enforce security policies, control traffic flow, and protect against unauthorized access and cyber threats.
+
+HTTPS Traffic:
+
+Traffic is served over HTTPS to encrypt data transmitted between clients and servers, ensuring confidentiality and integrity of information.
+
+Monitoring:
+
+Monitoring is used to track system performance, detect issues, and ensure the infrastructure operates optimally.
+
+Data Collection by Monitoring Tool:
+
+The monitoring tool collects data by deploying monitoring clients (e.g., Sumo Logic collectors) on each server to gather performance metrics, logs, and events.
+
+Monitoring Web Server QPS:
+
+To monitor web server queries per second (QPS), configure the monitoring tool to collect and analyze web server logs or utilize built-in metrics provided by the web server software.
+
+Issues with the Infrastructure:
+
+SSL Termination at Load Balancer Level:
+
+Terminating SSL at the load balancer exposes decrypted traffic within the internal network, potentially compromising data security.
+
+Single MySQL Server for Writes:
+
+Having only one MySQL server capable of accepting writes creates a single point of failure for write operations, risking data loss or downtime in case of server failure.
+
+Uniform Servers with Same Components:
+
+Uniformity in server components may lead to a lack of diversity in the infrastructure, making it susceptible to widespread failures or vulnerabilities affecting all servers simultaneously.
