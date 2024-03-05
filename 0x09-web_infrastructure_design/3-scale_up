@@ -1,0 +1,36 @@
+https://drive.google.com/file/d/11rOM7_AWNHmoB3TSe7JXzUHBMyTAOAzO/view?usp=sharing
+
+
+Scaling Up the Infrastructure with Separate Components
+
+Components:
+
+Load Balancers (HAproxy Cluster):
+
+Distributes incoming web traffic across multiple servers for load balancing and high availability.
+Why: Enables horizontal scaling by distributing traffic among multiple servers and ensures redundancy for increased reliability.
+
+Web Servers (Nginx):
+
+Hosts and serves static content over HTTP/HTTPS.
+Why: Separating web servers allows for dedicated handling of static content delivery, improving performance and scalability.
+
+Application Servers:
+
+Executes application logic and processes dynamic content.
+Why: Isolating application servers ensures efficient processing of dynamic requests and scalability independent of web server resources.
+
+MySQL Database Servers:
+
+Stores and manages website data, including user information and content.
+Why: Dedicated database servers handle database operations independently, ensuring optimal performance and scalability for data storage and retrieval.
+
+Specifics Explained:
+
+Load Balancer Cluster:
+
+Configuring HAproxy as a cluster with multiple instances ensures high availability and load distribution, enhancing fault tolerance and scalability.
+
+Separate Web and Application Servers:
+
+Segregating web and application servers allows for efficient resource utilization and scaling based on specific workload demands.
