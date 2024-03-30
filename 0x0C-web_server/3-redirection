@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Bash script to configure Nginx redirection on a new Ubuntu machine
 
-# Update
+# Update package lists
 apt-get update
 
 # Install Nginx
 apt-get install nginx -y
 
 # Configure Nginx redirection
-echo '
+cat <<EOF > /etc/nginx/sites-available/default
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -21,10 +21,10 @@ server {
 
     # Other server configurations...
 }
-' | sudo tee /etc/nginx/sites-available/default > /dev/null
+EOF
 
 # Restart Nginx
 service nginx restart
 
 # Output confirmation message
-echo "Nginx redirection configured successfully. /redirect_me is now redirected to another page./"
+echo "Nginx redirection configured successfully. /redirect_me is now redirected to another page."
