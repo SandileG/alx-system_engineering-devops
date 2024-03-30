@@ -46,5 +46,8 @@ EOF'
 # Restart Nginx
 sudo systemctl restart nginx
 
+# Verify that the custom 404 page contains the expected string
+curl -s localhost/404.html | grep -q "Ceci n'est pas une page"
+
 # Output confirmation message
 echo "Nginx custom 404 page configured successfully."
