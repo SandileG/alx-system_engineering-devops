@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Install nginx on web server (listening on port 80)
-# Querying nginx at root (/) wit Get request (requesting page)
-# curl http://35.229.54.225/  --> returns string "Holberton School"
-# curl http://35.229.54.225/  --> returns header info
-
 sudo apt-get -y update
 sudo apt-get -y install nginx
 echo "Holberton School" | sudo tee /usr/share/nginx/html/index.html
