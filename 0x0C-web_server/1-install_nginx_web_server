@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# This script installs and configures Nginx on an Ubuntu machine.
+
+# Function to check if a command is available
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Install net-tools if netstat command is not available
+if ! command_exists netstat; then
+    echo "Installing net-tools package..."
+    apt-get update
+    apt-get install -y net-tools
+fi
+
+# Install Nginx with the '-y' flag to automatically confirm prompts
+apt-get update
+apt-get install -y nginx
+
+# Verify if Nginx is installed and running
+if [ "$(which nginx)" != "/usr/sbin/nginx" ]; then
+    echo "Nginx installation failed."
+    exit 1
+fi
+
+# Configure Nginx to listen on port 80 and serve "Hello World!" page
+echo "Hello World!" > /var/www/html/index.html
+
+# Restart Nginx without using systemctl
+killall nginx
+/usr/sbin/nginx -g "daemon off;" &
+
+# Check if Nginx is listening on port 80
+if ! netstat -tuln | grep -q ':80'; then
+    echo "Nginx is not listening on port 80."
+    exit 1
+fi
+
+# Display success message
+echo "Nginx installed and configured successfully."
