@@ -1,0 +1,3 @@
+# Script for transferring files from local server to remote server
+
+scp -o StrictHostKeyChecking=no -i ~/.ssh/school 1-install_nginx_web_server 3-redirection 4-not_found_page_404 ubuntu@52.3.241.35:~/

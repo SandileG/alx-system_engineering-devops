@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# This script configures Nginx to redirect /redirect_me to another page with a 301 Moved Permanently status code.
+
+# Function to check if a command is available
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Install net-tools if netstat command is not available
+if ! command_exists netstat; then
+    echo "Installing net-tools package..."
+    apt-get update
+    apt-get install -y net-tools
+fi
+
+# Install Nginx with the '-y' flag to automatically confirm prompts
+apt-get update
+apt-get install -y nginx
+
+# Verify if Nginx is installed and running
+if [ "$(which nginx)" != "/usr/sbin/nginx" ]; then
+    echo "Nginx installation failed."
+    exit 1
+fi
+
+# Configure Nginx to perform redirection
+cat > /etc/nginx/sites-available/default << EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Remove default symlink and create a new one
+rm -f /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Restart Nginx without using systemctl
+killall nginx
+/usr/sbin/nginx -g "daemon off;" &
+
+# Check if Nginx is listening on port 80
+if ! netstat -tuln | grep -q ':80'; then
+    echo "Nginx is not listening on port 80."
+    exit 1
+fi
+
+# Display success message
+echo "Nginx configured for redirection successfully."
