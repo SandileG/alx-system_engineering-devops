@@ -1,43 +1,5 @@
 #!/usr/bin/env bash
-# This script ensures Nginx is running and listening on port 80 of all active IPv4 IPs.
+# configures a server to listening on port 80 of all servers active IPv4 IPs
 
-# Step 1: Check Nginx service status
-nginx_status=$(systemctl is-active nginx)
-if [ "$nginx_status" != "active" ]; then
-    echo "Nginx service is not active. Starting Nginx..."
-    systemctl start nginx
-    if [ $? -ne 0 ]; then
-        echo "Failed to start Nginx service. Exiting."
-        exit 1
-    fi
-fi
-
-# Step 2: Verify Nginx configuration for port 80
-nginx_config="/etc/nginx/nginx.conf"
-if ! grep -q "listen\s*80" "$nginx_config"; then
-    echo "Nginx configuration does not specify port 80. Modifying configuration..."
-    sed -i 's/\(listen\s*\)\([0-9]\+\)\(;\)/\180\3/' "$nginx_config"
-fi
-
-# Step 3: Ensure no conflicting services are occupying port 80
-conflicting_service=$(netstat -tuln | grep ':80 ')
-if [ -n "$conflicting_service" ]; then
-    echo "Port 80 is already in use by another service. Exiting."
-    exit 1
-fi
-
-# Step 4: Restart Nginx service
-systemctl restart nginx
-if [ $? -ne 0 ]; then
-    echo "Failed to restart Nginx service. Exiting."
-    exit 1
-fi
-
-# Step 5: Verify Nginx is listening on port 80
-nginx_listening=$(netstat -tuln | grep ':80 ')
-if [ -z "$nginx_listening" ]; then
-    echo "Nginx is not listening on port 80. Exiting."
-    exit 1
-fi
-
-echo "Nginx is now running and listening on port 80."
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
