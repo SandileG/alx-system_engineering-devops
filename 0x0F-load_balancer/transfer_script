@@ -1,0 +1,4 @@
+# Script for transferring files from local server to remote server
+
+scp -o StrictHostKeyChecking=no -i ~/.ssh/school 0-custom_http_response_header 1-install_load_balancer 2-puppet_custom_http_response_header.pp transfer_script ubuntu@52.3.241.35:~/
+
