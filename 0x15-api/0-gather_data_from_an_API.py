@@ -41,7 +41,8 @@ if __name__ == "__main__":
             user.get("name"), len(completed), len(todos)))
 
         # Print the completed tasks one by one with indentation
-        [print("\t{}".format(complete)) for complete in completed]
+        for complete in completed:
+            print("\t {}".format(complete))
 
     except requests.exceptions.RequestException as e:
         print("Error:", e)
