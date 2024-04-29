@@ -1,34 +1,48 @@
 #!/usr/bin/python3
 """
-Request from API; Return TODO list progress given employee ID
+Returns to-do list information for a given employee ID.
+
+This script takes an employee ID as a command-line argument and fetches
+the corresponding user information and to-do list from the JSONPlaceholder API.
+It then prints the tasks completed by the employee.
 """
+
 import requests
-from sys import argv
-
-
-def display():
-    """return API data"""
-    users = requests.get("http://jsonplaceholder.typicode.com/users")
-    for u in users.json():
-        if u.get('id') == int(argv[1]):
-            EMPLOYEE_NAME = (u.get('name'))
-            break
-    TOTAL_NUM_OF_TASKS = 0
-    NUMBER_OF_DONE_TASKS = 0
-    TASK_TITLE = []
-    todos = requests.get("http://jsonplaceholder.typicode.com/todos")
-    for t in todos.json():
-        if t.get('userId') == int(argv[1]):
-            TOTAL_NUM_OF_TASKS += 1
-            if t.get('completed') is True:
-                NUMBER_OF_DONE_TASKS += 1
-                TASK_TITLE.append(t.get('title'))
-    print("Employee {} is done with tasks({}/{}):".format(EMPLOYEE_NAME,
-                                                          NUMBER_OF_DONE_TASKS,
-                                                          TOTAL_NUM_OF_TASKS))
-    for task in TASK_TITLE:
-        print("\t {}".format(task))
+import sys
 
 
 if __name__ == "__main__":
-    display()
+    # Check if the user provided an employee ID as a command-line argument
+    if len(sys.argv) != 2:
+        print("Usage: python3 script.py <employee_id>")
+        sys.exit(1)
+
+    # Base URL for the JSONPlaceholder API
+    url = "https://jsonplaceholder.typicode.com/"
+
+    try:
+        # Get the employee information using the provided employee ID
+        employee_id = sys.argv[1]
+        user_response = requests.get(url + "users/{}".format(employee_id))
+        user_response.raise_for_status()
+        user = user_response.json()
+
+        # Get the to-do list for the employee using the provided employee ID
+        params = {"userId": employee_id}
+        todos_response = requests.get(url + "todos", params=params)
+        todos_response.raise_for_status()
+        todos = todos_response.json()
+
+        # Filter completed tasks and count them
+        completed = [t.get("title") for t in todos if t.get("completed")]
+
+        # Print the employee's name and the number of completed tasks
+        print("Employee {} is done with tasks({}/{}):".format(
+            user.get("name"), len(completed), len(todos)))
+
+        # Print the completed tasks one by one with indentation
+        [print("\t{}".format(complete)) for complete in completed]
+
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        sys.exit(1)
