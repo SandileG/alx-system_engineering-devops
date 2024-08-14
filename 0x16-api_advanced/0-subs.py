@@ -1,25 +1,25 @@
 #!/usr/bin/python3
 """
-Script that queries subscribers on a given Reddit subreddit.
+Query Reddit API for number of subscribers for a given subreddit
 """
-
 import requests
 
 
 def number_of_subscribers(subreddit):
-    # Dfine the URL for the subreddit about.json endpoint
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    """
+        return number of subscribers for a given subreddit
+        return 0 if invalid subreddit given
+    """
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
 
-    # Set a custom User-Agent to avoid Too Many Requests error
-    user_agent = "python:subreddit.subscriber.counter:v1.0 (by u/yourusername)"
-    headers = {"User-Agent": user_agent}
+    # get user agent
+    # https://stackoverflow.com/questions/10606133/ -->
+    # sending-user-agent-using-requests-library-in-python
+    headers = requests.utils.default_headers()
+    headers.update({'User-Agent': 'My User Agent 1.0'})
 
-    # Make the request without following redirects
-    reponse = requests.get(url, headers=headers, allow_redirects=False)
-
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        return "OK"
-    
-    # If the subreddit is invalid or any other issue, return 0
-    return 0
+    r = requests.get(url, headers=headers).json()
+    subscribers = r.get('data', {}).get('subscribers')
+    if not subscribers:
+        return 0
+    return subscribers
