@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
-# Configure your Nginx server to have a custom 404 page that contains a string
+# This script installs and configures Nginx on an Ubuntu machine to serve a "Hello World" page at the root, set up a redirection, and configure a custom 404 error page.
 
-ADD301_REDIRECT="\\\tlocation /redirect_me {\n\t\t return 301 https://google.com;\n\t}\n"
-ADD404_NOTFOUND="error_page 404 /custom_404.html;\n\\tlocation = /custom_404.html {\n\t\t root /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
-PATTERN="#error_page 404 /404.html;"
-
+# Update package lists and install Nginx
 sudo apt-get update
 sudo apt-get -y install nginx
+
+# Start Nginx service
 sudo service nginx start
 
-echo "Holberton School" | sudo tee /usr/share/nginx/html/index.html
-sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default #add at line 30
+# Configure "Hello World" page
+echo "Hello World!" | sudo tee /usr/share/nginx/html/index.html
 
+# Create the custom 404 error page
 echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
-sudo sed -i "s@$PATTERN@$ADD404_NOTFOUND@" /etc/nginx/sites-available/default #uncomment and replace
 
+# Modify the Nginx default server block configuration
+sudo sed -i '/^server {/a \\tlocation /redirect_me { return 301 https://google.com; }\n' /etc/nginx/sites-available/default
+sudo sed -i '/^server {/a \\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html { root /usr/share/nginx/html; internal; }\n' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
 sudo service nginx restart
