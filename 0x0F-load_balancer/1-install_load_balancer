@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#/usr/bin/env bash
 # install load balancer
 
 
@@ -40,8 +40,8 @@ frontend sgybuilds-tech-frontend
 
 backend sgybuilds-tech-backend
     balance roundrobin
-    server 293855-web-01 52.3.241.35:80 check
-    server 293855-web-02 18.204.10.6:80 check
+    server 293855-web-01 35.175.135.222:80 check
+    server 293855-web-02 54.197.84.58:80 check
 "
 
 # shellcheck disable=SC2154
